@@ -1,0 +1,15 @@
+<h1>新規投稿</h1>
+<%= form_with model: @list do |f| %>
+  <h5>
+    上映日<%= f.text_field :day %>
+    製作国<%= f.text_field :country %>
+    上映時間<%= f.text_field :time %>
+  </h5>
+  <h4>タイトル</h4>
+  <%= f.text_field :title %>
+
+  <h4>あらすじ</h4>
+  <%= f.text_area :body %>
+
+  <%= f.submit '投稿' %>
+<% end %>
