@@ -1,14 +1,19 @@
+
+
 <h1>投稿一覧</h1>
 
-<%= @movies.each do |movie| %>
+<% @movies.each do |movie| %>
   <p>
     上映日<%= movie.day %>
     製作国<%= movie.country %>
     上映時間<%= movie.time %>
+    <% movie.tags.each do |tag| %>
+      <%= tag.name %>
+    <% end %>
   </p>
 
   <p>タイトル
-  　<%= movie.title %>
+  　<%= link_to movie.title, admin_movie_path(movie.id) %>
   </p>
   <p>あらすじ
     <%= movie.body %>

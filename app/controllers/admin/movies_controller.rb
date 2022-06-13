@@ -4,24 +4,39 @@ class Admin::MoviesController < ApplicationController
   end
 
   def create
-    @movie = Monie.new(movie_params)
+    @movie = Movie.new(movie_params)
     @movie.save
-    redirect_to admin_movies_path
+    redirect_to admin_movie_path(@movie.id)
   end
 
   def index
-    @movies = Movie.all
+    @tags = Tag.all
+    @movies = params[:name].present? ? Tag.find(params[:name]).movies : Movie.all
   end
 
   def show
+    @movie = Movie.find(params[:id])
   end
 
   def edit
+    @movie = Movie.find(params[:id])
+  end
+
+  def update
+    @movie = Movie.find(params[:id])
+    @movie.update(movie_params)
+    redirect_to admin_movie_path(@movie.id)
+  end
+
+  def destroy
+    @movie = Movie.find(params[:id])
+    @movie.destroy
+    redirect_to admin_movies_path
   end
 
   private
   # ストロングパラメータ
   def movie_params
-    params.require(:movie).permit(:title, :body, :day, :country, :time)
+    params.require(:movie).permit(:title, :body, :day, :country, :time, tag_ids: [])
   end
 end

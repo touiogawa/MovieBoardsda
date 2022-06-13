@@ -1,0 +1,12 @@
+<h1>ユーザー情報詳細</h1>
+<thead>
+  <tr>
+    <th>氏名</th>
+    <th><%= current_customer.family_name %></th>
+  </tr>
+  <tr>
+    <th>カナ</th>
+    <th><%= current_customer.first_name %></th>
+  </tr>
+  <p><%= link_to "プロフィール編集", edit_public_path(current_customer.id)%></p>
+</thead>

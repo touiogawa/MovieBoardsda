@@ -1,2 +1,21 @@
-<h1>Admin::Movies#show</h1>
-<p>Find me in app/views/admin/movies/show.html.erb</p>
+<h5>
+  上映日時<%= @movie.day %>
+  製作国<%= @movie.country %>
+  上映時間<%= @movie.time %>
+</h5>
+
+<% @movie.tags.each do |tag| %>
+  <%= tag.name %>
+<% end %>
+
+<h2>タイトル</h2>
+<p><%= @movie.title %></p>
+
+<h2>あらすじ</h2>
+<p><%= @movie.body %></p>
+
+<%= link_to "削除", admin_movie_path(@movie.id), method: :delete, "data-confirm" => "本当に削除しますか？" %>
+|
+<%= link_to "一覧", admin_movies_path %>
+|
+<%= link_to "編集", edit_admin_movie_path(@movie.id) %>

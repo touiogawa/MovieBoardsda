@@ -11,6 +11,45 @@
   </head>
 
   <body>
+    <header>
+    <% if admin_signed_in? %>
+      <li>
+        <%= link_to "映画一覧", admin_movies_path %>
+      </li>
+      <li>
+        <%= link_to "映画追加", new_admin_movie_path %>
+      </li>
+      <li>
+        <%= link_to "ユーザー一覧", admin_public_index_path %>
+      </li>
+      <li>
+        <%= link_to "ログアウト", destroy_admin_session_path, method: :delete %>
+      </li>
+    <% elsif customer_signed_in? %>
+      <li>
+        <%= link_to "ログアウト", destroy_customer_session_path, method: :delete %>
+      </li>
+      <li>
+        <%= link_to "マイページ", public_path(current_customer.id) %>
+      </li>
+      <li>
+        <%= link_to "映画一覧", movies_path %>
+      </li>
+    <% else %>
+      <li>
+        <%= link_to "新規登録", new_customer_registration_path %>
+      </li>
+      <li>
+        <%= link_to "ログイン", new_customer_session_path %>
+      </li>
+      <li>
+        <%= link_to "映画一覧", new_customer_session_path %>
+      </li>
+      <li>
+        <%= link_to "管理者ログイン", new_admin_session_path %>
+      </li>
+    <% end %>
+    </header>
     <%= yield %>
   </body>
 </html>
