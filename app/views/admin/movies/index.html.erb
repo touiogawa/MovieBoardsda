@@ -1,21 +1,30 @@
-
-
-<h1>投稿一覧</h1>
-
-<% @movies.each do |movie| %>
-  <p>
-    上映日<%= movie.day %>
-    製作国<%= movie.country %>
-    上映時間<%= movie.time %>
-    <% movie.tags.each do |tag| %>
-      <%= tag.name %>
+<h2 style = "margin:20px;">投稿一覧</h2>
+<h5>
+  <table style = "margin:30px;">
+    <% @movies.each do |movie| %>
+      <tbody class= "border-bottom border-info">
+        <tr>
+          <td>
+            <h4>
+              タイトル：<%= link_to movie.title, admin_movie_path(movie.id) %>
+            </h4>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <h5>
+              上映日時：<%= movie.day %>/
+              製作国：<%= movie.country %>/
+              上映時間：<%= movie.time %>/
+            </h5>
+          </td>
+        </tr>
+        <td>
+          <h5>
+            あらすじ：<%= movie.body %>
+          </h5>
+        </td>
+      </tbody>
     <% end %>
-  </p>
-
-  <p>タイトル
-  　<%= link_to movie.title, admin_movie_path(movie.id) %>
-  </p>
-  <p>あらすじ
-    <%= movie.body %>
-  </p>
-<% end %>
+    </table>
+</h5>

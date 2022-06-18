@@ -1,6 +1,7 @@
 class Movie < ApplicationRecord
   has_many :movie_tags, dependent: :destroy
   has_many :tags, through: :movie_tags, dependent: :destroy
+  has_many :movie_comments, dependent: :destroy
 
   def self.looks(search, word)
     if search == "perfect_match"

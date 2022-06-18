@@ -6,50 +6,85 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
+
   <body>
-    <header>
-    <% if admin_signed_in? %>
-      <li>
-        <%= link_to "映画一覧", admin_movies_path %>
-      </li>
-      <li>
-        <%= link_to "映画追加", new_admin_movie_path %>
-      </li>
-      <li>
-        <%= link_to "ユーザー一覧", admin_public_index_path %>
-      </li>
-      <li>
-        <%= link_to "ログアウト", destroy_admin_session_path, method: :delete %>
-      </li>
-    <% elsif customer_signed_in? %>
-      <li>
-        <%= link_to "ログアウト", destroy_customer_session_path, method: :delete %>
-      </li>
-      <li>
-        <%= link_to "マイページ", public_path(current_customer.id) %>
-      </li>
-      <li>
-        <%= link_to "映画一覧", movies_path %>
-      </li>
-    <% else %>
-      <li>
-        <%= link_to "新規登録", new_customer_registration_path %>
-      </li>
-      <li>
-        <%= link_to "ログイン", new_customer_session_path %>
-      </li>
-      <li>
-        <%= link_to "映画一覧", new_customer_session_path %>
-      </li>
-      <li>
-        <%= link_to "管理者ログイン", new_admin_session_path %>
-      </li>
-    <% end %>
+    <header class>
+    <nav class="navbar navbar-light" style="background-color: #AFDFE4;">
+      <div class="container">
+        <%= link_to image_tag("movie3.jpg", size: '100x100'), root_path %>
+        <% if admin_signed_in? %>
+          <li class="list-unstyled nav-item m-3">
+            <%= link_to "映画一覧", admin_movies_path, class: 'btn btn-outline-info btn-lg font-weight-bold text-dark' %>
+          </li>
+
+          <li class="list-unstyled nav-item m-3">
+            <%= link_to "映画追加", new_admin_movie_path, class: 'btn btn-outline-info btn-lg font-weight-bold text-dark' %>
+          </li>
+
+          <li class="list-unstyled nav-item m-3">
+            <%= link_to "ユーザー一覧", admin_public_index_path, class: 'btn btn-outline-info btn-lg font-weight-bold text-dark' %>
+          </li>
+
+          <li class="list-unstyled nav-item m-3">
+            <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: 'btn btn-outline-info btn-lg font-weight-bold text-dark' %>
+          </li>
+          <div class="search_form nav-item m-3">
+            <%= form_with url: search_path, local: true, method: :get do |f| %>
+              <%= f.text_field :word %>
+              <%= f.select :range, options_for_select([['Customer'], ['Movie']]) %>
+              <%= f.select :search, options_for_select([["完全一致","perfect_match"], ["前方一致","forward_match"],  ["後方一致","backward_match"], ["部分一致","partial_match"]]) %>
+              <%= f.submit "検索", class: "btn btn-primary" %>
+            <% end %>
+          </div>
+        <% elsif customer_signed_in? %>
+          <li class="list-unstyled nav-item m-3">
+            <%= link_to "マイページ", public_path(current_customer.id), class: 'btn btn-outline-info btn-lg font-weight-bold text-dark' %>
+          </li>
+
+          <li class="list-unstyled nav-item m-3">
+            <%= link_to "映画一覧", movies_path, class: 'btn btn-outline-info btn-lg font-weight-bold text-dark' %>
+          </li>
+
+          <li class="list-unstyled nav-item m-3">
+            <%= link_to "ログアウト", destroy_customer_session_path, method: :delete, class: 'btn btn-outline-info btn-lg font-weight-bold text-dark' %>
+          </li>
+          <div class="search_form nav-item m-3">
+            <%= form_with url: search_path, local: true, method: :get do |f| %>
+              <%= f.text_field :word %>
+              <%= f.select :range, options_for_select([['Customer'], ['Movie']]) %>
+              <%= f.select :search, options_for_select([["完全一致","perfect_match"], ["前方一致","forward_match"],  ["後方一致","backward_match"], ["部分一致","partial_match"]]) %>
+              <%= f.submit "検索", class: "btn btn-primary" %>
+            <% end %>
+          </div>
+        <% else %>
+          <li class="list-unstyled nav-item m-2">
+            <%= link_to "新規登録", new_customer_registration_path, class: 'btn btn-outline-info btn-lg font-weight-bold text-dark' %>
+          </li>
+
+          <li class="list-unstyled nav-item m-2">
+            <%= link_to "ログイン", new_customer_session_path, class: 'btn btn-outline-info btn-lg font-weight-bold text-dark' %>
+          </li>
+
+          <li class="list-unstyled nav-item m-2">
+            <%= link_to "映画一覧", new_customer_session_path, class: 'btn btn-outline-info btn-lg font-weight-bold text-dark' %>
+          </li>
+
+          <li class= "list-unstyled nav-item m-2">
+            <%= button_to "管理者ログイン", new_admin_session_path, class: 'btn btn-outline-info btn-lg font-weight-bold text-dark' %>
+          </li>
+        <% end %>
+      </div>
+    </nav>
     </header>
     <%= yield %>
+    <footer class="fixed-bottom bg-info text-white" style="height:50px;">
+      <div class="container">
+        ようこそMovieBoardへ！
+      </div>
+    </footer>
   </body>
 </html>

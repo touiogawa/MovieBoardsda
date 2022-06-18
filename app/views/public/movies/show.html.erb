@@ -1,31 +1,49 @@
-<h1>映画詳細</h1>
-<h5>
-  上映日時<%= @movie.day %>
-  製作国<%= @movie.country %>
-  上映時間<%= @movie.time %>
-  <% @movie.tags.each do |tag| %>
-    <%= tag.name %>
-  <% end %>
-</h5>
-
-<h2>タイトル</h2>
-<p><%= @movie.title %></p>
-
-<h2>あらすじ</h2>
-<p><%= @movie.body %></p>
-
-<div>
-  <p>コメント件数：<%= @movie.movie_comments.count %></p>
-  <% @movie.movie_comments.each do |movie| %>
-    <%= movie_comment.customer.family_name %>
-    <%= movie_comment.created_at.strftime('%Y/%m/%d') %><%= movie_comment.comment %>
-  <% end %>
+<div class="container">
+  <table style = "margin:30px;">
+    <tbody class= "border-bottom border-info">
+      <tr>
+        <td>
+          <h2>
+            タイトル：<%= @movie.title %>
+          </h2>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <h5>
+            上映日時<%= @movie.day %>
+            製作国<%= @movie.country %>
+            上映時間<%= @movie.time %>
+            <% @movie.tags.each do |tag| %>
+              <%= tag.name %>
+            <% end %>
+          </h5>
+        </td>
+      </tr>
+      <td>
+        <h5>
+          あらすじ：<%= @movie.body %>
+        </h5>
+      </td>
+    </tbody>
+  </table>
+  <h5 style="margin-left:29px;">
+    <div>
+      <p>レビュー件数：<%= @movie.movie_comments.count %></p>
+      <div>
+        <% @movie.movie_comments.each do |movie_comment| %>
+          <%= movie_comment.customer.family_name %>
+          <%= movie_comment.created_at.strftime('%Y/%m/%d') %>：<%= movie_comment.comment %><br>
+          <br>
+        <% end %>
+      </div>
+    </div>
+    <div>
+      <%= form_with model: [@movie, @movie_comment] do |f| %>
+        <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
+        <%= f.submit "送信する" %>
+      <% end %>
+    </div>
+    <%= link_to "一覧に戻る", admin_movies_path %>
+  </h5>
 </div>
-<div>
-  <%= form_with model: [@movie, @movie_comment] do |f| %>
-    <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
-    <%= f.submit "送信する" %>
-  <% end %>
-</div>
-
-<%= link_to "一覧に戻る", admin_movies_path %>

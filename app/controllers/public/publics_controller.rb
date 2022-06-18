@@ -1,5 +1,8 @@
 class Public::PublicsController < ApplicationController
+  before_action :admin_customer, only: :destroy
+
   def show
+    @customers = Customer.all
   end
 
   def edit

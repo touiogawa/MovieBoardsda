@@ -1,24 +1,48 @@
-<h2>Results index</h2>
+<div class="container">
+  <h2 style = "margin:20px;">検索結果一覧</h2>
 
-<table class="table table-hover table-inverse">
-  <!--検索対象モデルがUserの時 -->
-  <% if @range == "Customer" %>
-    <tbody>
-      <% @customers.each do |customer| %>
-        <tr>
-          <td><%= customer.family_name %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  <% else %>
-    <!--検索対象モデルがUserではない時(= 検索対象モデルがBookの時) -->
-    <tbody>
-      <% @movies.each do |movie| %>
-        <tr>
-          <td><%= movie.title %></td>
-          <td><%= movie.body %></td>
-        </tr>
-      <% end %>
-    </tbody>
+  <table class="table table-hover table-inverse">
+    <!--検索対象モデルがUserの時 -->
+    <% if @range == "Customer" %>
+      <tbody class= "border-bottom border-info">
+        <% @customers.each do |customer| %>
+          <tr>
+            <h4>
+              <td>苗字：<%= link_to customer.family_name, edit_public_path(customer.id) %></td>
+              <td>名前：<%= customer.first_name %></td>
+            </h4>
+          </tr>
+        <% end %>
+      </tbody>
+    <% else %>
+      <!--検索対象モデルがUserではない時(= 検索対象モデルがBookの時) -->
+      <table style = "margin:30px;">
+        <% @movies.each do |movie| %>
+          <tbody class= "border-bottom border-info">
+            <tr>
+              <td>
+                <h4>
+                  タイトル：<%= link_to movie.title, movie_path(movie.id) %>
+                </h4>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <h5>
+                  上映日時：<%= movie.day %>/
+                  製作国：<%= movie.country %>/
+                  上映時間：<%= movie.time %>/
+                </h5>
+              </td>
+            </tr>
+            <td>
+              <h5>
+                あらすじ：<%= movie.body %>
+              </h5>
+            </td>
+          </tbody>
+        <% end %>
+        </table>
   <% end %>
-</table>
+  </table>
+</div>

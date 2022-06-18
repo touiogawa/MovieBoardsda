@@ -1,4 +1,5 @@
 class Admin::PublicController < ApplicationController
+
   def index
     @customers = Customer.all
   end
@@ -13,9 +14,16 @@ class Admin::PublicController < ApplicationController
     redirect_to admin_public_index_path
   end
 
+  def destroy
+    Customer.find(params[:id]).destroy
+    flash[:success] = "ユーザー削除完了"
+    redirect_to admin_public_index_path
+  end
+
   private
 
   def customer_params
     params.require(:customer).permit(:family_name, :first_name)
   end
+
 end

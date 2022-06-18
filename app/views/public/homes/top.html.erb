@@ -1,2 +1,21 @@
-<h1>Public::Homes#top</h1>
-<p>Find me in app/views/public/homes/top.html.erb</p>
+<div class="container">
+  <div = style="margin: 70px;">
+    <h1>ようこそMovieBoardへ！</h1>
+    <div class="container">
+      <div class="mx-auto" style="margin: 70px; width: 700px;">
+        <h2>新規登録がお済でない方はこちらから
+        　<li class="list-unstyled nav-item m-2">
+            <%= link_to "新規登録", new_customer_registration_path, class: 'btn btn-outline-success btn-lg font-weight-bold text-dark' %>
+          </li>
+        </h2>
+      </div>
+      <div class="mx-auto" style="margin: 70px; width: 700px;">
+        <h2>ログインはこちらから
+          <li class="list-unstyled nav-item m-2">
+            <%= link_to "ログイン", new_customer_session_path, class: 'btn btn-outline-success btn-lg font-weight-bold text-dark' %>
+          </li>
+        </h2>
+      </div>
+    </div>
+  </div>
+</div>

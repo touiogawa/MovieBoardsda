@@ -1,31 +1,30 @@
-<div class="search_form">
-  <%= form_with url: search_path, local: true, method: :get do |f| %>
-    <%= f.text_field :word %>
-    <%= f.select :range, options_for_select([['Customer'], ['Movie']]) %>
-    <%= f.select :search, options_for_select([["完全一致","perfect_match"], ["前方一致","forward_match"],  ["後方一致","backward_match"], ["部分一致","partial_match"]]) %>
-    <%= f.submit "検索", class: "btn btn-primary" %>
-  <% end %>
-</div>
-<h1>投稿一覧</h1>
-
-<% @movies.each do |movie| %>
-  <p>
-    上映日<%= movie.day %>
-    製作国<%= movie.country %>
-    上映時間<%= movie.time %>
-    <% movie.tags.each do |tag| %>
-      <%= tag.name %>
+<h2 style = "margin:20px;">投稿一覧</h2>
+<h5>
+  <table style = "margin:30px;">
+    <% @movies.each do |movie| %>
+      <tbody class= "border-bottom border-info">
+        <tr>
+          <td>
+            <h4>
+              タイトル：<%= link_to movie.title, movie_path(movie.id) %>
+            </h4>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <h5>
+              上映日時：<%= movie.day %>/
+              製作国：<%= movie.country %>/
+              上映時間：<%= movie.time %>/
+            </h5>
+          </td>
+        </tr>
+        <td>
+          <h5>
+            あらすじ：<%= movie.body %>
+          </h5>
+        </td>
+      </tbody>
     <% end %>
-  </p>
-
-  <% movie.tags.each do |tag| %>
-    <%= tag.name %>
-  <% end %>
-
-  <p>タイトル
-  　<%= link_to movie.title, movie_path(movie.id) %>
-  </p>
-  <p>あらすじ
-    <%= movie.body %>
-  </p>
-<% end %>
+    </table>
+</h5>

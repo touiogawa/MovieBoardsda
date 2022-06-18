@@ -1,6 +1,18 @@
-<h1>Admin::Public#index</h1>
-<p>Find me in app/views/admin/public/index.html.erb</p>
-<% @customers.each do |customer| %>
-  <%= link_to customer.family_name, edit_admin_public_path(customer.id) %>
-  氏名<%= customer.first_name %>
-<% end %>
+<div class="container">
+  <h2 style = "margin:20px;">検索結果一覧</h2>
+
+  <table class="table table-hover table-inverse">
+    <tbody class= "border-bottom border-info">
+      <% @customers.each do |customer| %>
+        <tr>
+          <h4>
+            <td>苗字：<%= customer.family_name %></td>
+            <td>名前：<%= customer.first_name %></td>
+            <td><%= link_to "編集", edit_admin_public_path(customer.id), class: 'btn btn-outline-success btn-sm font-weight-bold text-dark' %></td>
+            <td><%= link_to "削除", admin_public_path(customer.id), method: :delete, class: 'btn btn-outline-danger btn-sm font-weight-bold text-dark' %></td>
+          </h4>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
